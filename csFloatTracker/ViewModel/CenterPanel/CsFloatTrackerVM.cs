@@ -136,7 +136,8 @@ public class CsFloatTrackerVM : BindableBase
 
     public RelayCommand BuyCommand { get; }
     public RelayCommand SellCommand { get; }
-    public RelayCommand EditCommand { get; }
+    public RelayCommand EditAccountCommand { get; }
+    public RelayCommand EditFloatCommand { get; }
     public RelayCommand DeleteCommand { get; }
     public RelayCommand ShowChartCommand { get; }
 
@@ -152,7 +153,8 @@ public class CsFloatTrackerVM : BindableBase
 
         BuyCommand = new RelayCommand(BuyCommandFnc, BuyCommandCE);
         SellCommand = new RelayCommand(SellCommandFnc, SellCommandCE);
-        EditCommand = new RelayCommand(EditCommandFnc, EditCommandCE);
+        EditAccountCommand = new RelayCommand(EditAccountCommandFnc, EditAccountCommandCE);
+        EditFloatCommand = new RelayCommand(EditFloatCommandFnc, EditFloatCommandCE);
         DeleteCommand = new RelayCommand(DeleteCommandFnc, DeleteCommandCE);
         ShowChartCommand = new RelayCommand(ShowChartCommandFnc, ShowChartCommandCE);
         RefreshAsync();
@@ -221,8 +223,8 @@ public class CsFloatTrackerVM : BindableBase
         }
     }
 
-    private bool EditCommandCE(object? _) => _account != null;
-    private void EditCommandFnc(object? _)
+    private bool EditAccountCommandCE(object? _) => _account != null;
+    private void EditAccountCommandFnc(object? _)
     {
         if (_account == null)
         {
@@ -238,15 +240,69 @@ public class CsFloatTrackerVM : BindableBase
             vm.InitializeAccount(_account);
         }
         editAccountWindow.ShowDialog();
-        OnEditWindowClosed(editAccountWindow);
+        OnEditAccountWindowClosed(editAccountWindow);
     }
 
-    private async void OnEditWindowClosed(EditAccountWindow window)
+    private async void OnEditAccountWindowClosed(EditAccountWindow window)
     {
         if (_account != null && window.DataContext is EditAccountWindowVM vm &&
             vm.HasChanges && vm.IsValid)
         {
             await _repository.UpdateAccountAsync(_account, vm);
+            RefreshAsync();
+        }
+    }
+
+    private bool EditFloatCommandCE(object? _) => SelectedInventoryItem != null || SelectedTransactionItem != null;
+    private void EditFloatCommandFnc(object? _)
+    {
+        if (SelectedTransactionItem != null)
+        {
+            var editTransactionWindow = new EditTransactionWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (editTransactionWindow.DataContext is EditTransactionWindowVM vm)
+            {
+                vm.InitializeTransaction(SelectedTransactionItem);
+            }
+            editTransactionWindow.ShowDialog();
+            OnEditTransactionWindowClosed(editTransactionWindow);
+            return;
+        }
+
+        if (SelectedInventoryItem != null)
+        {
+            var editFloatItemWindow = new EditFloatItemWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (editFloatItemWindow.DataContext is EditFloatItemWindowVM vm)
+            {
+                vm.InitializeInventoryItem(SelectedInventoryItem);
+            }
+            editFloatItemWindow.ShowDialog();
+            OnEditFloatWindowClosed(editFloatItemWindow);
+            return;
+        }
+    }
+
+    private async void OnEditFloatWindowClosed(EditFloatItemWindow window)
+    {
+        if (SelectedInventoryItem != null && window.DataContext is EditFloatItemWindowVM vm &&
+            vm.HasChanges && vm.IsValid)
+        {
+            await _repository.UpdateInventoryItemAsync(SelectedInventoryItem, vm);
+            RefreshAsync();
+        }
+    }
+
+    private async void OnEditTransactionWindowClosed(EditTransactionWindow window)
+    {
+        if (SelectedTransactionItem != null && window.DataContext is EditTransactionWindowVM vm &&
+            vm.HasChanges && vm.IsValid)
+        {
+            await _repository.UpdateTransactionAsync(SelectedTransactionItem, vm);
             RefreshAsync();
         }
     }

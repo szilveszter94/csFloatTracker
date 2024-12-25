@@ -12,7 +12,7 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                <Button Margin="0 0 10 0" Command="{Binding EditCommand}">
+                <Button Margin="0 0 10 0" Command="{Binding EditAccountCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="AccountEdit" Width="23" VerticalAlignment="Center" Height="23"/>
                         <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Edit Account</TextBlock>
@@ -101,6 +101,12 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="CartRemove" Width="23" VerticalAlignment="Center" Height="23"/>
                         <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Sell</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 0 10 0" Command="{Binding EditFloatCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Edit" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Edit</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Margin="0 0 10 0" Command="{Binding DeleteCommand}">

@@ -9,13 +9,13 @@ namespace csFloatTracker.ViewModel.InternalWindows;
 
 public class ChartWindowVM : BindableBase
 {
-    private ObservableCollection<TransactionItem> _transactions = [];
-    public ObservableCollection<TransactionItem> Transactions
+    private ObservableCollection<TransactionItem> _filteredTransactions = [];
+    public ObservableCollection<TransactionItem> FilteredTransactions
     {
-        get => _transactions;
+        get => _filteredTransactions;
         set
         {
-            _transactions = value;
+            _filteredTransactions = value;
             OnPropertyChanged();
         }
     }
@@ -52,7 +52,8 @@ public class ChartWindowVM : BindableBase
     }
 
     public RelayCommand SessionChangeCommand { get; }
-    private ChartSession _selectedSession = ChartSession.Daily;
+    private ChartSession _selectedSession = ChartSession.AllTime;
+    private ObservableCollection<TransactionItem> _transactionList = [];
 
     public ChartWindowVM()
     {
@@ -83,13 +84,12 @@ public class ChartWindowVM : BindableBase
             _ => DateTime.MinValue
         };
 
-        var filteredTransactions = new ObservableCollection<TransactionItem>(
-            Transactions.Where(t => t.CreatedDate >= startDate));
+        var filteredTransactions = _transactionList.Where(t => t.SoldDate >= startDate);
 
-        Transactions.Clear();
+        FilteredTransactions.Clear();
         foreach (var transactionItem in filteredTransactions)
         {
-            Transactions.Add(transactionItem);
+            FilteredTransactions.Add(transactionItem);
         }
 
         UpdateChart();
@@ -97,18 +97,19 @@ public class ChartWindowVM : BindableBase
 
     public void InitializeTransactions(ObservableCollection<TransactionItem> transactionItems)
     {
-        Transactions.Clear();
-        foreach (var transactionItem in transactionItems)
+        _transactionList = transactionItems;
+        FilteredTransactions.Clear();
+        foreach (var transactionItem in _transactionList)
         {
-            Transactions.Add(transactionItem);
+            FilteredTransactions.Add(transactionItem);
         }
         UpdateChart();
     }
 
     private void UpdateChart()
     {
-        var profits = Transactions.Select(t => t.Profit).ToList();
-        Dates = new ObservableCollection<string>(Transactions.Select(t => t.CreatedDate.ToString("MM/dd/yyyy")));
+        var profits = FilteredTransactions.Select(t => t.Profit).ToList();
+        Dates = new ObservableCollection<string>(FilteredTransactions.Select(t => t.SoldDate.ToString("MM/dd/yyyy")));
 
         ProfitSeries = new SeriesCollection
         {

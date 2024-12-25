@@ -148,6 +148,55 @@ public class FloatTrackerRepository
         }
     }
 
+    public async Task UpdateTransactionAsync(TransactionItem transactionItem, EditTransactionWindowVM vm)
+    {
+        if (transactionItem == null || vm == null)
+        {
+            throw new ArgumentNullException("The transaction item to edit cannot be null.");
+        }
+
+        try
+        {
+            var transactionToEdit = await _context.TransactionHistory.FirstOrDefaultAsync(a => a.Id == transactionItem.Id);
+
+            if (transactionToEdit == null)
+            {
+                throw new ArgumentNullException("The transaction to edit cannot be found.");
+            }
+
+            transactionToEdit.SoldDate = vm.SellDate;
+            transactionToEdit.CreatedDate = vm.BuyDate;
+
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating transaction item with ID {transactionItem.Id}: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task UpdateInventoryItemAsync(InventoryItem inventoryItem, EditFloatItemWindowVM vm)
+    {
+        if (inventoryItem == null)
+        {
+            throw new ArgumentNullException("The inventory item to edit cannot be null.");
+        }
+
+        try
+        {
+            var inventoryToEdit = await _context.Inventory.FirstOrDefaultAsync(a => a.Id == inventoryItem.Id) ?? throw new ArgumentNullException("The inventory item to edit cannot be found.");
+            inventoryToEdit.Created = vm.BuyDate;
+
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating inventory item with ID {inventoryItem.Id}: {ex.Message}");
+            throw;
+        }
+    }
+
     public async Task DeleteInventoryItem(InventoryItem item)
     {
         if (item == null)

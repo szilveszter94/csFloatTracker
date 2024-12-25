@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Vertical">
-                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Daily}" IsChecked="True"
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Daily}"
                              FontSize="16" Margin="0 0 0 10" Content="Today" GroupName="ChartGroup" />
                 <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Weekly}"
                              FontSize="16" Margin="0 0 0 10" Content="Last week" GroupName="ChartGroup" />
@@ -28,7 +28,8 @@
                 <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Yearly}"
                              FontSize="16" Margin="0 0 0 10" Content="Last year" GroupName="ChartGroup" />
                 <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.AllTime}"
-                             FontSize="16" Margin="0 0 0 10" Content="All time" GroupName="ChartGroup" />
+                             FontSize="16" Margin="0 0 0 10" Content="All time" GroupName="ChartGroup"
+                             IsChecked="True" />
             </StackPanel>
             
             <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
