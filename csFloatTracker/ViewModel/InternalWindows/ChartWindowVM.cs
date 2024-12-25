@@ -51,8 +51,48 @@ public class ChartWindowVM : BindableBase
         }
     }
 
+    public RelayCommand SessionChangeCommand { get; }
+    private ChartSession _selectedSession = ChartSession.Daily;
+
     public ChartWindowVM()
     {
+        SessionChangeCommand = new RelayCommand(SessionChangeCommandFnc, SessionChangeCommandCE);
+    }
+
+    private bool SessionChangeCommandCE(object? _) => true;
+    private void SessionChangeCommandFnc(object? param)
+    {
+        if (param is ChartSession session)
+        {
+            if (session == _selectedSession) return;
+            _selectedSession = session;
+            FilterTransactionList(session);
+        }
+    }
+
+    private void FilterTransactionList(ChartSession session)
+    {
+        DateTime now = DateTime.Now;
+        DateTime startDate = session switch
+        {
+            ChartSession.Daily => now.Date,
+            ChartSession.Weekly => now.Date.AddDays(-(int)now.DayOfWeek),
+            ChartSession.Monthly => new DateTime(now.Year, now.Month, 1),
+            ChartSession.Yearly => new DateTime(now.Year, 1, 1),
+            ChartSession.AllTime => DateTime.MinValue,
+            _ => DateTime.MinValue
+        };
+
+        var filteredTransactions = new ObservableCollection<TransactionItem>(
+            Transactions.Where(t => t.CreatedDate >= startDate));
+
+        Transactions.Clear();
+        foreach (var transactionItem in filteredTransactions)
+        {
+            Transactions.Add(transactionItem);
+        }
+
+        UpdateChart();
     }
 
     public void InitializeTransactions(ObservableCollection<TransactionItem> transactionItems)
@@ -81,4 +121,12 @@ public class ChartWindowVM : BindableBase
 
         YFormatter = value => value.ToString("C", CultureInfo.GetCultureInfo("en-US"));
     }
+}
+public enum ChartSession
+{
+    Daily,
+    Weekly,
+    Monthly,
+    Yearly,
+    AllTime
 }

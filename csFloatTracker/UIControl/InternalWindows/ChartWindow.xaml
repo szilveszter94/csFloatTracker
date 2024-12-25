@@ -6,32 +6,61 @@
         xmlns:vm="clr-namespace:csFloatTracker.ViewModel.InternalWindows"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         WindowStartupLocation="CenterOwner"
-        mc:Ignorable="d" Width="750" Height="550"
+        mc:Ignorable="d" Width="950" Height="550"
         Title="ChartWindow">
     <Window.DataContext>
         <vm:ChartWindowVM />
     </Window.DataContext>
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Vertical">
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Daily}" IsChecked="True"
+                             FontSize="16" Margin="0 0 0 10" Content="Today" GroupName="ChartGroup" />
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Weekly}"
+                             FontSize="16" Margin="0 0 0 10" Content="Last week" GroupName="ChartGroup" />
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Monthly}"
+                             FontSize="16" Margin="0 0 0 10" Content="Last month" GroupName="ChartGroup" />
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.Yearly}"
+                             FontSize="16" Margin="0 0 0 10" Content="Last year" GroupName="ChartGroup" />
+                <RadioButton Command="{Binding SessionChangeCommand}" CommandParameter="{x:Static vm:ChartSession.AllTime}"
+                             FontSize="16" Margin="0 0 0 10" Content="All time" GroupName="ChartGroup" />
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Orientation="Vertical">
-            <TextBlock FontSize="24" HorizontalAlignment="Center" Margin="10" Text="Profit graph" />
-            <lvc:CartesianChart Height="400" Width="600" LegendLocation="Right"
-            Series="{Binding ProfitSeries}">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Date" LabelsRotation="15" Labels="{Binding Dates}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1" />
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Profit" LabelFormatter="{Binding YFormatter}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator StrokeThickness="0" />
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </StackPanel>
+                <TextBlock FontSize="24" HorizontalAlignment="Center" Margin="10" Text="Profit graph" />
+                <lvc:CartesianChart Height="400" Width="600" LegendLocation="Right"
+                    Series="{Binding ProfitSeries}">
+                    <lvc:CartesianChart.Resources>
+                        <Style TargetType="lvc:DefaultTooltip">
+                            <Setter Property="Background" Value="{StaticResource HighlightBrush}" />
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="Padding" Value="10" />
+                        </Style>
+                    </lvc:CartesianChart.Resources>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Date" Foreground="{StaticResource IdealForegroundColorBrush}"
+                                  LabelsRotation="15" Labels="{Binding Dates}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="1" />
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Profit" Foreground="{StaticResource IdealForegroundColorBrush}" LabelFormatter="{Binding YFormatter}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator StrokeThickness="0" />
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
