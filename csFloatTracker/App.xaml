@@ -4,16 +4,15 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
 
                 <!-- MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
 
                 <!-- Material Design -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Secondary/MaterialDesignColor.Lime.xaml" />
@@ -24,7 +23,17 @@
 
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- MahApps Brushes -->
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="3" />
+            </Style>
+
+            <!-- Update any specific brushes if needed -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
             <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{DynamicResource Primary600}" />
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>

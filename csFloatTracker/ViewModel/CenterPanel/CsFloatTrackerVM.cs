@@ -70,8 +70,18 @@ public class CsFloatTrackerVM : BindableBase
         {
             _selectedInventoryItem = value;
 
+            if (_suppressUpdates)
+            {
+                OnPropertyChanged();
+                _suppressUpdates = false;
+                return;
+            }
+
+            _selectedInventoryItem = value;
+
             if (SelectedTransactionItem != null)
             {
+                _suppressUpdates = true;
                 SelectedTransactionItem = null;
             }
             OnPropertyChanged();
@@ -86,8 +96,16 @@ public class CsFloatTrackerVM : BindableBase
         {
             _selectedTransactionItem = value;
 
+            if (_suppressUpdates)
+            {
+                OnPropertyChanged();
+                _suppressUpdates = false;
+                return;
+            }
+
             if (SelectedInventoryItem != null)
             {
+                _suppressUpdates = true;
                 SelectedInventoryItem = null;
             }
             OnPropertyChanged();
@@ -116,6 +134,7 @@ public class CsFloatTrackerVM : BindableBase
     private readonly FloatTrackerContext _context;
     private readonly FloatTrackerRepository _repository;
     private CsAccount? _account;
+    private bool _suppressUpdates = false;
 
     public CsFloatTrackerVM()
     {

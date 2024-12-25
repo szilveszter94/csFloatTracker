@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm ="clr-namespace:csFloatTracker.ViewModel.CenterPanel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -12,6 +13,12 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
+                <Button Margin="0 0 10 0" Command="{Binding EditCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="AccountEdit" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Edit Account</TextBlock>
+                    </StackPanel>
+                </Button>
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Balance, StringFormat='Balance: ${0:F2}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Profit, StringFormat='Profit: ${0:F2}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Tax, StringFormat='Tax: {0:F2}%'}" />
@@ -27,11 +34,18 @@
                     <TextBlock Text="Inventory" FontSize="24" HorizontalAlignment="Center" />
                     <DataGrid ItemsSource="{Binding Inventory}"
                         SelectedItem="{Binding SelectedInventoryItem}"
-                        AutoGenerateColumns="False" Style="{StaticResource MahApps.Styles.DataGrid}"
+                        AutoGenerateColumns="False"
                         Height="400" IsReadOnly="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                        Margin="5" SelectionUnit="FullRow" SelectionMode="Single" >
+                        Margin="5"
+                        EnableColumnVirtualization="True"  
+                        EnableRowVirtualization="True"  
+                        GridLinesVisibility="Horizontal"
+                        KeyboardNavigation.TabNavigation="Once"  
+                        SelectionMode="Extended"  
+                        SelectionUnit="FullRow"  
+                        VirtualizingPanel.VirtualizationMode="Recycling" >
                         <DataGrid.BorderBrush>
                             <SolidColorBrush Color="Black"/>
                         </DataGrid.BorderBrush>
@@ -51,7 +65,7 @@
                     <TextBlock Text="Sold items" FontSize="24" HorizontalAlignment="Center" />
                     <DataGrid ItemsSource="{Binding TransactionHistroy}"
                         SelectedItem="{Binding SelectedTransactionItem}"
-                        AutoGenerateColumns="False" Style="{StaticResource MahApps.Styles.DataGrid}"
+                        AutoGenerateColumns="False"
                         Height="400" IsReadOnly="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -78,10 +92,24 @@
             </Grid>
             
             <StackPanel Margin="0 0 0 20" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Margin="0 0 10 0" Command="{Binding BuyCommand}">Buy</Button>
-                <Button Margin="0 0 10 0" Command="{Binding SellCommand}">Sell</Button>
-                <Button Margin="0 0 10 0" Command="{Binding EditCommand}">Edit account</Button>
-                <Button Margin="0 0 10 0" Command="{Binding DeleteCommand}">Delete</Button>
+                <Button Margin="0 0 10 0" Command="{Binding BuyCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Cart" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Buy</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 0 10 0" Command="{Binding SellCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="CartRemove" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Sell</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 0 10 0" Command="{Binding DeleteCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Delete" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Delete</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
             
         </StackPanel>
