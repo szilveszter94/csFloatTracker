@@ -121,16 +121,24 @@ public class CsFloatTrackerVM : BindableBase
     }
 
     private ObservableCollection<TransactionItem> _transactionHistroy = [];
-    public ObservableCollection<TransactionItem> TransactionHistroy
+    public ObservableCollection<TransactionItem> TransactionHistory
     {
         get => _transactionHistroy;
         set { _transactionHistroy = value; OnPropertyChanged(); }
+    }
+
+    private ChartWindowVM? _chartVM;
+    public ChartWindowVM? ChartVM
+    {
+        get => _chartVM;
+        set { _chartVM = value; OnPropertyChanged(); }
     }
 
     public RelayCommand BuyCommand { get; }
     public RelayCommand SellCommand { get; }
     public RelayCommand EditCommand { get; }
     public RelayCommand DeleteCommand { get; }
+    public RelayCommand ShowChartCommand { get; }
 
     private readonly FloatTrackerContext _context;
     private readonly FloatTrackerRepository _repository;
@@ -146,6 +154,7 @@ public class CsFloatTrackerVM : BindableBase
         SellCommand = new RelayCommand(SellCommandFnc, SellCommandCE);
         EditCommand = new RelayCommand(EditCommandFnc, EditCommandCE);
         DeleteCommand = new RelayCommand(DeleteCommandFnc, DeleteCommandCE);
+        ShowChartCommand = new RelayCommand(ShowChartCommandFnc, ShowChartCommandCE);
         RefreshAsync();
     }
 
@@ -271,6 +280,27 @@ public class CsFloatTrackerVM : BindableBase
         }
     }
 
+    private bool ShowChartCommandCE(object? _) => TransactionHistory.Any();
+    private void ShowChartCommandFnc(object? _)
+    {
+        if (!TransactionHistory.Any())
+        {
+            return;
+        }
+
+        var chartWindow = new ChartWindow
+        {
+            Owner = Application.Current.MainWindow
+        };
+
+        if (chartWindow.DataContext is ChartWindowVM vm)
+        {
+            vm.InitializeTransactions(TransactionHistory);
+        }
+
+        chartWindow.ShowDialog();
+    }
+
     private async void RefreshAsync()
     {
         _account = await _repository.GetAccountAsync();
@@ -286,10 +316,10 @@ public class CsFloatTrackerVM : BindableBase
             Inventory.Add(item);
         }
 
-        TransactionHistroy.Clear();
+        TransactionHistory.Clear();
         foreach (var item in _account.TransactionHistory)
         {
-            TransactionHistroy.Add(item);
+            TransactionHistory.Add(item);
         }
     }
 }

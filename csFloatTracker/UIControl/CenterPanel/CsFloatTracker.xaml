@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm ="clr-namespace:csFloatTracker.ViewModel.CenterPanel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" Focusable="True" KeyDown="HandleKeyDown"
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Focusable="True" KeyDown="HandleKeyDown" d:DesignWidth="800" Height="612">
     <UserControl.DataContext>
         <vm:CsFloatTrackerVM />
     </UserControl.DataContext>
@@ -18,7 +17,7 @@
                         <materialDesign:PackIcon Kind="AccountEdit" Width="23" VerticalAlignment="Center" Height="23"/>
                         <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Edit Account</TextBlock>
                     </StackPanel>
-                </Button> 
+                </Button>
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Balance, StringFormat='Balance: ${0:F2}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Profit, StringFormat='Profit: ${0:F2}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Tax, StringFormat='Tax: {0:F0}%'}" />
@@ -63,7 +62,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
                     <TextBlock Text="Sold items" FontSize="24" HorizontalAlignment="Center" />
-                    <DataGrid ItemsSource="{Binding TransactionHistroy}"
+                    <DataGrid ItemsSource="{Binding TransactionHistory}"
                         SelectedItem="{Binding SelectedTransactionItem}"
                         AutoGenerateColumns="False"
                         Height="400" IsReadOnly="True"
@@ -110,7 +109,14 @@
                         <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Delete</TextBlock>
                     </StackPanel>
                 </Button>
+                <Button Margin="0 0 10 0" Command="{Binding ShowChartCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="ChartBar" Width="23" VerticalAlignment="Center" Height="23"/>
+                        <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Statistics</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 </UserControl>
