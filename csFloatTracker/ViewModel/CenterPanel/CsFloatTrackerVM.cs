@@ -52,6 +52,16 @@ public class CsFloatTrackerVM : BindableBase
         }
     }
 
+    private decimal _tax;
+    public decimal Tax
+    {
+        get => _tax;
+        set
+        {
+            _tax = value; OnPropertyChanged();
+        }
+    }
+
     private InventoryItem? _selectedInventoryItem;
     public InventoryItem? SelectedInventoryItem
     {
@@ -146,6 +156,7 @@ public class CsFloatTrackerVM : BindableBase
             if (setSellPriceWindow.DataContext is SetSellPriceWindowVM vm)
             {
                 vm.BoughtPrice = SelectedInventoryItem.Price;
+                vm.Tax = _account == null ? 0 : _account.Tax;
             }
             setSellPriceWindow.ShowDialog();
             OnSellWindowClosed(setSellPriceWindow);
@@ -156,7 +167,7 @@ public class CsFloatTrackerVM : BindableBase
     {
         if (SelectedInventoryItem != null && window.DataContext is SetSellPriceWindowVM vm && vm.IsValid)
         {
-            await _repository.SellFloatAsync(SelectedInventoryItem, vm.SellPrice);
+            await _repository.SellFloatAsync(SelectedInventoryItem, vm);
             RefreshAsync();
         }
     }
@@ -224,6 +235,7 @@ public class CsFloatTrackerVM : BindableBase
         Balance = _account.Balance;
         SoldCount = _account.SoldCount;
         PurchasedCount = _account.PurchasedCount;
+        Tax = _account.Tax;
 
         Inventory.Clear();
         foreach (var item in _account.Inventory)

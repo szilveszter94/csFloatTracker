@@ -67,6 +67,16 @@ public class EditAccountWindowVM : BindableBase
         }
     }
 
+    private decimal _tax;
+    public decimal Tax
+    {
+        get => _tax;
+        set
+        {
+            _tax = value; OnPropertyChanged();
+        }
+    }
+
     public RelayCommand EditCommand { get; }
     public event Action? OnWindowClosed;
 
@@ -83,6 +93,7 @@ public class EditAccountWindowVM : BindableBase
         SoldCount = _account.SoldCount;
         Balance = _account.Balance;
         Profit = _account.Profit;
+        Tax = _account.Tax;
         PurchasedCount = _account.PurchasedCount;
     }
 
@@ -93,7 +104,8 @@ public class EditAccountWindowVM : BindableBase
         HasChanges = SoldCount != _account?.SoldCount ||
             Profit != _account?.Profit ||
             Balance != _account?.Balance ||
-            PurchasedCount != _account?.PurchasedCount;
+            PurchasedCount != _account?.PurchasedCount ||
+            Tax != _account?.Tax;
         OnWindowClosed?.Invoke();
     }
 }

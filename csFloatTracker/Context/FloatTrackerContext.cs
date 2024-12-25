@@ -36,7 +36,8 @@ public class FloatTrackerContext : DbContext
             SoldCount = 0,
             PurchasedCount = 0,
             Balance = 0,
-            Profit = 0
+            Profit = 0,
+            Tax = 2m
         });
 
         base.OnModelCreating(modelBuilder);

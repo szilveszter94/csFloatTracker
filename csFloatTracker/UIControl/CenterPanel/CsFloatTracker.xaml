@@ -12,10 +12,11 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
-                <TextBlock FontSize="18" Margin="5" Text="{Binding Balance, StringFormat='Balance: {0}'}" />
-                <TextBlock FontSize="18" Margin="5" Text="{Binding Profit, StringFormat='Profit: {0}'}" />
-                <TextBlock FontSize="18" Margin="5" Text="{Binding SoldCount, StringFormat='Sold items: {0}'}" />
-                <TextBlock FontSize="18" Margin="5" Text="{Binding PurchasedCount, StringFormat='Purchased items: {0}'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding Balance, StringFormat='Balance: ${0:F2}'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding Profit, StringFormat='Profit: ${0:F2}'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding Tax, StringFormat='Tax: {0:F2}%'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding SoldCount, StringFormat='Sold items: {0}'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding PurchasedCount, StringFormat='Purchased items: {0}'}" />
             </StackPanel>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
@@ -65,9 +66,10 @@
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="130" />
                             <DataGridTextColumn Header="Float" Binding="{Binding Float, StringFormat='Float: {0:F2}'}" MinWidth="100" />
                             <DataGridTextColumn Header="Buy price" Binding="{Binding BuyPrice, StringFormat='{}{0:C}'}" MinWidth="100" />
-                            <DataGridTextColumn Header="Sold price" Binding="{Binding SoldPrice, StringFormat='{}{0:C}'}" MinWidth="100" />
+                            <DataGridTextColumn Header="Sell price" Binding="{Binding SoldPrice, StringFormat='{}{0:C}'}" MinWidth="100" />
+                            <DataGridTextColumn Header="Sell price after tax" Binding="{Binding PriceAfterTax, StringFormat='{}{0:C}'}" MinWidth="120" />
                             <DataGridTextColumn Header="Profit" Binding="{Binding Profit, StringFormat='{}{0:C}'}" MinWidth="100" />
-                            <DataGridTextColumn Header="Tax" Binding="{Binding Tax, StringFormat='{}{0:C}'}" MinWidth="50" />
+                            <DataGridTextColumn Header="Tax" Binding="{Binding Tax, StringFormat='{}{0:F2}%'}" MinWidth="50" />
                             <DataGridTextColumn Header="Sold date" Binding="{Binding SoldDate, StringFormat={}{0:yyyy.MM.dd HH:mm:ss}}" MinWidth="150" />
                             <DataGridTextColumn Header="Buy date" Binding="{Binding CreatedDate, StringFormat={}{0:yyyy.MM.dd HH:mm:ss}}" MinWidth="150" />
                         </DataGrid.Columns>

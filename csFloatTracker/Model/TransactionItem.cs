@@ -7,6 +7,7 @@ public class TransactionItem
     public decimal BuyPrice { get; set; }
     public decimal SoldPrice { get; set; }
     public decimal Tax { get; set; }
+    public decimal PriceAfterTax { get; set; }
     public decimal Profit { get; set; }
     public float Float { get; set; }
     public DateTime CreatedDate { get; set; }

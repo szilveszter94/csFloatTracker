@@ -35,6 +35,9 @@ namespace csFloatTracker.Migrations
                     b.Property<int>("SoldCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("CsAccounts");
@@ -46,7 +49,8 @@ namespace csFloatTracker.Migrations
                             Balance = 0m,
                             Profit = 0m,
                             PurchasedCount = 0,
-                            SoldCount = 0
+                            SoldCount = 0,
+                            Tax = 0.02m
                         });
                 });
 
@@ -97,6 +101,9 @@ namespace csFloatTracker.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("PriceAfterTax")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Profit")

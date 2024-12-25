@@ -8,7 +8,6 @@ namespace csFloatTracker.Repository;
 public class FloatTrackerRepository
 {
     private readonly FloatTrackerContext _context;
-    private const decimal TAX = 0.02m;
 
     public FloatTrackerRepository(FloatTrackerContext context)
     {
@@ -62,7 +61,7 @@ public class FloatTrackerRepository
         }
     }
 
-    public async Task SellFloatAsync(InventoryItem item, decimal sellPrice)
+    public async Task SellFloatAsync(InventoryItem item, SetSellPriceWindowVM vm)
     {
         if (item == null)
         {
@@ -81,15 +80,16 @@ public class FloatTrackerRepository
             var inventoryItem = await _context.Inventory.FirstOrDefaultAsync(f => f.Id == item.Id);
             if (inventoryItem != null)
             {
-                var sellPriceAfterTax = sellPrice - (sellPrice * TAX);
+                var sellPriceAfterTax = vm.SellPrice - (vm.SellPrice * vm.Tax / 100);
                 var profit = sellPriceAfterTax - inventoryItem.Price;
 
                 var transactionItem = new TransactionItem()
                 {
                     Name = inventoryItem.Name,
                     BuyPrice = inventoryItem.Price,
-                    SoldPrice = sellPrice,
-                    Tax = TAX,
+                    SoldPrice = vm.SellPrice,
+                    PriceAfterTax = sellPriceAfterTax,
+                    Tax = vm.Tax,
                     Profit = profit,
                     CreatedDate = inventoryItem.Created,
                     Float = inventoryItem.Float,
@@ -99,7 +99,7 @@ public class FloatTrackerRepository
                 _context.TransactionHistory.Add(transactionItem);
                 _context.Inventory.Remove(inventoryItem);
 
-                account.Balance += sellPrice;
+                account.Balance += sellPriceAfterTax;
                 account.SoldCount++;
                 account.Profit += profit;
 
@@ -137,6 +137,7 @@ public class FloatTrackerRepository
             accountToEdit.PurchasedCount = vm.PurchasedCount;
             accountToEdit.Balance = vm.Balance;
             accountToEdit.Profit = vm.Profit;
+            accountToEdit.Tax = vm.Tax;
 
             await _context.SaveChangesAsync();
         }
@@ -206,7 +207,7 @@ public class FloatTrackerRepository
             {
                 _context.TransactionHistory.Remove(transactionItem);
 
-                account.Balance -= transactionItem.SoldPrice - transactionItem.BuyPrice;
+                account.Balance -= transactionItem.PriceAfterTax - transactionItem.BuyPrice;
                 account.Profit -= transactionItem.Profit;
                 account.PurchasedCount--;
                 account.SoldCount--;

@@ -37,6 +37,17 @@ public class SetSellPriceWindowVM : BindableBase
         }
     }
 
+    private decimal _tax = 0;
+    public decimal Tax
+    {
+        get => _tax;
+        set
+        {
+            _tax = value;
+            OnPropertyChanged();
+        }
+    }
+
     public RelayCommand SellCommand { get; }
     public event Action? OnWindowClosed;
 

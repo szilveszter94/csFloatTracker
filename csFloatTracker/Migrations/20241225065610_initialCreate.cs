@@ -20,7 +20,8 @@ namespace csFloatTracker.Migrations
                     SoldCount = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchasedCount = table.Column<int>(type: "INTEGER", nullable: false),
                     Balance = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Profit = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Profit = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Tax = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,6 +61,7 @@ namespace csFloatTracker.Migrations
                     BuyPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     SoldPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     Tax = table.Column<decimal>(type: "TEXT", nullable: false),
+                    PriceAfterTax = table.Column<decimal>(type: "TEXT", nullable: false),
                     Profit = table.Column<decimal>(type: "TEXT", nullable: false),
                     Float = table.Column<float>(type: "REAL", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -79,8 +81,8 @@ namespace csFloatTracker.Migrations
 
             migrationBuilder.InsertData(
                 table: "CsAccounts",
-                columns: new[] { "Id", "Balance", "Profit", "PurchasedCount", "SoldCount" },
-                values: new object[] { 1, 0m, 0m, 0, 0 });
+                columns: new[] { "Id", "Balance", "Profit", "PurchasedCount", "SoldCount", "Tax" },
+                values: new object[] { 1, 0m, 0m, 0, 0, 0.02m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_CsAccountId",
