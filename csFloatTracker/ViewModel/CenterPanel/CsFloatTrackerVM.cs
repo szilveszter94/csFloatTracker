@@ -132,7 +132,10 @@ public class CsFloatTrackerVM : BindableBase
     private bool BuyCommandCE(object? _) => true;
     private void BuyCommandFnc(object? _)
     {
-        var buyWindow = new BuyItemWindow();
+        var buyWindow = new BuyItemWindow
+        {
+            Owner = Application.Current.MainWindow
+        };
         buyWindow.ShowDialog();
         OnBuyWindowClosed(buyWindow);
     }
@@ -152,7 +155,10 @@ public class CsFloatTrackerVM : BindableBase
     {
         if (SelectedInventoryItem != null)
         {
-            var setSellPriceWindow = new SetSellPriceWindow();
+            var setSellPriceWindow = new SetSellPriceWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
             if (setSellPriceWindow.DataContext is SetSellPriceWindowVM vm)
             {
                 vm.BoughtPrice = SelectedInventoryItem.Price;
@@ -180,7 +186,10 @@ public class CsFloatTrackerVM : BindableBase
             return;
         }
 
-        var editAccountWindow = new EditAccountWindow();
+        var editAccountWindow = new EditAccountWindow
+        {
+            Owner = Application.Current.MainWindow
+        };
         if (editAccountWindow.DataContext is EditAccountWindowVM vm)
         {
             vm.InitializeAccount(_account);

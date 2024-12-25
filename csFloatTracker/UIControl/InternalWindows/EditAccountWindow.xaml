@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        WindowStartupLocation="CenterOwner"
         xmlns:vm="clr-namespace:csFloatTracker.ViewModel.InternalWindows"
         mc:Ignorable="d"
         Title="EditAccountWindow" Height="300" Width="500">

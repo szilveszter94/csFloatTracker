@@ -77,7 +77,7 @@
                 </StackPanel>
             </Grid>
             
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Margin="0 0 0 20" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button Margin="0 0 10 0" Command="{Binding BuyCommand}">Buy</Button>
                 <Button Margin="0 0 10 0" Command="{Binding SellCommand}">Sell</Button>
                 <Button Margin="0 0 10 0" Command="{Binding EditCommand}">Edit account</Button>

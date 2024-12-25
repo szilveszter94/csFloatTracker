@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:csFloatTracker"
         xmlns:controls="clr-namespace:csFloatTracker.UIControl.CenterPanel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="1500">
+        Title="CsFloatTracker"
+        Height="750"
+        Width="1500"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        MinWidth="800"
+        MinHeight="600">
     <Grid>
         <controls:CsFloatTracker />
     </Grid>
