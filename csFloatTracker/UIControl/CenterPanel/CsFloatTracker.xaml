@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm ="clr-namespace:csFloatTracker.ViewModel.CenterPanel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" Focusable="True" KeyDown="HandleKeyDown" d:DesignWidth="800" Height="612">
+             mc:Ignorable="d" Focusable="True" KeyDown="HandleKeyDown" d:DesignWidth="800">
     <UserControl.DataContext>
         <vm:CsFloatTrackerVM />
     </UserControl.DataContext>
@@ -34,7 +34,7 @@
                     <DataGrid ItemsSource="{Binding Inventory}"
                         SelectedItem="{Binding SelectedInventoryItem}"
                         AutoGenerateColumns="False"
-                        Height="400" IsReadOnly="True"
+                        Height="550" IsReadOnly="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         Margin="5"
@@ -65,7 +65,7 @@
                     <DataGrid ItemsSource="{Binding TransactionHistory}"
                         SelectedItem="{Binding SelectedTransactionItem}"
                         AutoGenerateColumns="False"
-                        Height="400" IsReadOnly="True"
+                        Height="550" IsReadOnly="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         Margin="5" SelectionUnit="FullRow" SelectionMode="Single" >
@@ -90,7 +90,7 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Margin="0 0 0 20" HorizontalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button Margin="0 0 10 0" Command="{Binding BuyCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <materialDesign:PackIcon Kind="Cart" Width="23" VerticalAlignment="Center" Height="23"/>

@@ -14,7 +14,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
                     Orientation="Vertical">
-            <TextBlock FontSize="24" HorizontalAlignment="Center" Margin="10" Text="Pofit graph" />
+            <TextBlock FontSize="24" HorizontalAlignment="Center" Margin="10" Text="Profit graph" />
             <lvc:CartesianChart Height="400" Width="600" LegendLocation="Right"
             Series="{Binding ProfitSeries}">
                 <lvc:CartesianChart.AxisX>
