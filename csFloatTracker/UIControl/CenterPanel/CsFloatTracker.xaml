@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm ="clr-namespace:csFloatTracker.ViewModel.CenterPanel"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Focusable="True" KeyDown="HandleKeyDown"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <vm:CsFloatTrackerVM />
@@ -18,10 +18,10 @@
                         <materialDesign:PackIcon Kind="AccountEdit" Width="23" VerticalAlignment="Center" Height="23"/>
                         <TextBlock FontSize="18" VerticalAlignment="Center" Margin="3 0 0 2">Edit Account</TextBlock>
                     </StackPanel>
-                </Button>
+                </Button> 
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Balance, StringFormat='Balance: ${0:F2}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding Profit, StringFormat='Profit: ${0:F2}'}" />
-                <TextBlock FontSize="18" Margin="10" Text="{Binding Tax, StringFormat='Tax: {0:F2}%'}" />
+                <TextBlock FontSize="18" Margin="10" Text="{Binding Tax, StringFormat='Tax: {0:F0}%'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding SoldCount, StringFormat='Sold items: {0}'}" />
                 <TextBlock FontSize="18" Margin="10" Text="{Binding PurchasedCount, StringFormat='Purchased items: {0}'}" />
             </StackPanel>
@@ -55,7 +55,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="130" />
                             <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat='Price: {0:C}'}" MinWidth="130" />
-                            <DataGridTextColumn Header="Float" Binding="{Binding Float, StringFormat='Float: {0:F2}'}" MinWidth="130" />
+                            <DataGridTextColumn Header="Float" Binding="{Binding Float, StringFormat='Float: {0:F12}'}" MinWidth="130" />
                             <DataGridTextColumn Header="Created" Binding="{Binding Created, StringFormat={}{0:yyyy.MM.dd HH:mm:ss}}"
                                                 MinWidth="150" />
                         </DataGrid.Columns>
@@ -90,7 +90,7 @@
                     </DataGrid>
                 </StackPanel>
             </Grid>
-            
+
             <StackPanel Margin="0 0 0 20" HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button Margin="0 0 10 0" Command="{Binding BuyCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -111,7 +111,6 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            
         </StackPanel>
     </Grid>
 </UserControl>

@@ -31,7 +31,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Tax:" VerticalAlignment="Center" Width="100" />
                 <mah:NumericUpDown Value="{Binding Tax, Mode=TwoWay}"
-                    Width="200" Margin="5" TextAlignment="Left" StringFormat="{}{0:F4}%" />
+                    Width="200" Margin="5" TextAlignment="Left" StringFormat="{}{0:F0}%" />
             </StackPanel>
 
             <!-- Sold count -->

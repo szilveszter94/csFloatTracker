@@ -2,6 +2,7 @@
 using csFloatTracker.Model;
 using csFloatTracker.Repository;
 using csFloatTracker.UIControl;
+using csFloatTracker.UIControl.CenterPanel;
 using csFloatTracker.UIControl.InternalWindows;
 using csFloatTracker.Utils;
 using csFloatTracker.ViewModel.InternalWindows;
@@ -146,6 +147,20 @@ public class CsFloatTrackerVM : BindableBase
         EditCommand = new RelayCommand(EditCommandFnc, EditCommandCE);
         DeleteCommand = new RelayCommand(DeleteCommandFnc, DeleteCommandCE);
         RefreshAsync();
+    }
+
+    public void HandleShortcut(ShortcutType shortcutType)
+    {
+        if (shortcutType == ShortcutType.CtrlB && BuyCommandCE(new object()))
+        {
+            BuyCommandFnc(new object());
+            return;
+        }
+        if (shortcutType == ShortcutType.CtrlS && SellCommandCE(new object()))
+        {
+            SellCommandFnc(new object());
+            return;
+        }
     }
 
     private bool BuyCommandCE(object? _) => true;
