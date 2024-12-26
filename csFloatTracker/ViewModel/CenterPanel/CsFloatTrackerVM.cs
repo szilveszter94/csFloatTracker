@@ -6,6 +6,7 @@ using csFloatTracker.UIControl.CenterPanel;
 using csFloatTracker.UIControl.InternalWindows;
 using csFloatTracker.Utils;
 using csFloatTracker.ViewModel.InternalWindows;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -414,6 +415,43 @@ public class CsFloatTrackerVM : BindableBase
 
     private async void GetAccount()
     {
+        var result = await _repository.GetAccountAsync();
+
+        if (result.IsSuccess)
+        {
+            _account = result.Value;
+        }
+        else
+        {
+            ResetDatabaseAsync();
+        }
+    }
+
+    private async void ResetDatabaseAsync()
+    {
+        try
+        {
+            MessageBoxResult msgResult = MessageBox.Show("No account found, do you want to create a new account?",
+                                      "Account not found",
+                                      MessageBoxButton.YesNo,
+                                      MessageBoxImage.Warning);
+
+            if (msgResult == MessageBoxResult.Yes)
+            {
+                _context.Database.EnsureDeleted();
+                _context.Database.Migrate();
+            }
+            else
+            {
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error creating account: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
         var result = await _repository.GetAccountAsync();
 
         if (result.IsSuccess)
