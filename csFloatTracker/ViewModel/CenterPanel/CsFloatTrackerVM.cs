@@ -439,7 +439,7 @@ public class CsFloatTrackerVM : BindableBase
             if (msgResult == MessageBoxResult.Yes)
             {
                 _context.Database.EnsureDeleted();
-                _context.Database.Migrate();
+                await _context.Database.MigrateAsync();
             }
             else
             {

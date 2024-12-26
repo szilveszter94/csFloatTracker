@@ -11,8 +11,8 @@ using csFloatTracker.Context;
 namespace csFloatTracker.Migrations
 {
     [DbContext(typeof(FloatTrackerContext))]
-    [Migration("20241226084135_initialCreate")]
-    partial class initialCreate
+    [Migration("20241226225932_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
