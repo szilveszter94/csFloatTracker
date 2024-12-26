@@ -56,7 +56,7 @@ public class SetSellPriceWindowVM : BindableBase
         SellCommand = new RelayCommand(SellCommandFnc, SellCommandCE);
     }
 
-    private bool SellCommandCE(object? _) => SellPrice > 0;
+    private bool SellCommandCE(object? _) => SellPrice >= 0 && Tax >= 0;
     private void SellCommandFnc(object? _)
     {
         IsValid = true;

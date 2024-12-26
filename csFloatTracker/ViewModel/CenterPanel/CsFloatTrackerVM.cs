@@ -145,7 +145,6 @@ public class CsFloatTrackerVM : BindableBase
     private readonly FloatTrackerRepository _repository;
     private CsAccount? _account;
     private bool _suppressUpdates = false;
-
     public CsFloatTrackerVM()
     {
         _context = new FloatTrackerContext();
@@ -157,6 +156,7 @@ public class CsFloatTrackerVM : BindableBase
         EditFloatCommand = new RelayCommand(EditFloatCommandFnc, EditFloatCommandCE);
         DeleteCommand = new RelayCommand(DeleteCommandFnc, DeleteCommandCE);
         ShowChartCommand = new RelayCommand(ShowChartCommandFnc, ShowChartCommandCE);
+        GetAccount();
         RefreshAsync();
     }
 
@@ -190,8 +190,16 @@ public class CsFloatTrackerVM : BindableBase
         if (window.DataContext is BuyItemWindowVM vm && vm.IsValid)
         {
             var floatItem = new InventoryItem() { Name = vm.Name, Price = vm.Price, Float = vm.Float, CsAccountId = _account?.Id ?? 1 };
-            await _repository.BuyFloatAsync(floatItem);
-            RefreshAsync();
+            var result = await _repository.BuyFloatAsync(floatItem);
+
+            if (result.IsSuccess)
+            {
+                RefreshAsync();
+            }
+            else
+            {
+                MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 
@@ -218,8 +226,16 @@ public class CsFloatTrackerVM : BindableBase
     {
         if (SelectedInventoryItem != null && window.DataContext is SetSellPriceWindowVM vm && vm.IsValid)
         {
-            await _repository.SellFloatAsync(SelectedInventoryItem, vm);
-            RefreshAsync();
+            var result = await _repository.SellFloatAsync(SelectedInventoryItem, vm);
+
+            if (result.IsSuccess)
+            {
+                RefreshAsync();
+            }
+            else
+            {
+                MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 
@@ -248,8 +264,16 @@ public class CsFloatTrackerVM : BindableBase
         if (_account != null && window.DataContext is EditAccountWindowVM vm &&
             vm.HasChanges && vm.IsValid)
         {
-            await _repository.UpdateAccountAsync(_account, vm);
-            RefreshAsync();
+            var result = await _repository.UpdateAccountAsync(_account, vm);
+
+            if (result.IsSuccess)
+            {
+                RefreshAsync();
+            }
+            else
+            {
+                MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 
@@ -292,8 +316,16 @@ public class CsFloatTrackerVM : BindableBase
         if (SelectedInventoryItem != null && window.DataContext is EditFloatItemWindowVM vm &&
             vm.HasChanges && vm.IsValid)
         {
-            await _repository.UpdateInventoryItemAsync(SelectedInventoryItem, vm);
-            RefreshAsync();
+            var result = await _repository.UpdateInventoryItemAsync(SelectedInventoryItem, vm);
+
+            if (result.IsSuccess)
+            {
+                RefreshAsync();
+            }
+            else
+            {
+                MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 
@@ -302,8 +334,16 @@ public class CsFloatTrackerVM : BindableBase
         if (SelectedTransactionItem != null && window.DataContext is EditTransactionWindowVM vm &&
             vm.HasChanges && vm.IsValid)
         {
-            await _repository.UpdateTransactionAsync(SelectedTransactionItem, vm);
-            RefreshAsync();
+            var result = await _repository.UpdateTransactionAsync(SelectedTransactionItem, vm);
+
+            if (result.IsSuccess)
+            {
+                RefreshAsync();
+            }
+            else
+            {
+                MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 
@@ -312,27 +352,42 @@ public class CsFloatTrackerVM : BindableBase
     {
         if (SelectedInventoryItem != null)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete the inventory item?",
+            MessageBoxResult msgResult = MessageBox.Show("Are you sure you want to delete the inventory item?",
                                           "Delete inventory item",
                                           MessageBoxButton.YesNo,
                                           MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (msgResult == MessageBoxResult.Yes)
             {
-                await _repository.DeleteInventoryItem(SelectedInventoryItem);
+                var result = await _repository.DeleteInventoryItem(SelectedInventoryItem);
+                if (result.IsSuccess)
+                {
+                    RefreshAsync();
+                }
+                else
+                {
+                    MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            RefreshAsync();
         }
         else if (SelectedTransactionItem != null)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete the transaction item?",
+            MessageBoxResult msgResult = MessageBox.Show("Are you sure you want to delete the transaction item?",
                                           "Delete transaction",
                                           MessageBoxButton.YesNo,
                                           MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (msgResult == MessageBoxResult.Yes)
             {
-                await _repository.DeleteTransactionItem(SelectedTransactionItem);
+                var result = await _repository.DeleteTransactionItem(SelectedTransactionItem);
+
+                if (result.IsSuccess)
+                {
+                    RefreshAsync();
+                }
+                else
+                {
+                    MessageBox.Show(result.Error, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            RefreshAsync();
         }
     }
 
@@ -357,9 +412,27 @@ public class CsFloatTrackerVM : BindableBase
         chartWindow.ShowDialog();
     }
 
-    private async void RefreshAsync()
+    private async void GetAccount()
     {
-        _account = await _repository.GetAccountAsync();
+        var result = await _repository.GetAccountAsync();
+
+        if (result.IsSuccess)
+        {
+            _account = result.Value;
+        }
+        else
+        {
+            MessageBox.Show(result.Error, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void RefreshAsync()
+    {
+        if (_account == null)
+        {
+            return;
+        }
+
         Profit = _account.Profit;
         Balance = _account.Balance;
         SoldCount = _account.SoldCount;

@@ -7,16 +7,37 @@
         xmlns:vm="clr-namespace:csFloatTracker.ViewModel.InternalWindows"
         mc:Ignorable="d"
         Title="EditFloatItemWindow"
-        WindowStartupLocation="CenterOwner" Height="150" Width="400">
+        WindowStartupLocation="CenterOwner" Height="250" Width="500">
     <Window.DataContext>
         <vm:EditFloatItemWindowVM />
     </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!--Name Field-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Name:" VerticalAlignment="Center" Width="70" />
+                <TextBox Width="300" Margin="5" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <!-- Price Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Price:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding Price, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+            </StackPanel>
+
+            <!-- Float Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Float:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding Float, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F12" />
+            </StackPanel>
+
             <!-- BuyDate -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Buy Date:" VerticalAlignment="Center" Width="100" />
-                <mah:DateTimePicker SelectedDateTime="{Binding BuyDate}" Culture="hu-HU" />
+                <TextBlock Text="Buy Date:" VerticalAlignment="Center" Width="70" />
+                <mah:DateTimePicker Width="300" SelectedDateTime="{Binding BuyDate}"
+                                    Culture="hu-HU" Margin="5" />
             </StackPanel>
 
             <!-- Submit Button -->

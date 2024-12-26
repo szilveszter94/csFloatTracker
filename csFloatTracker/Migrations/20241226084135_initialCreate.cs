@@ -82,7 +82,7 @@ namespace csFloatTracker.Migrations
             migrationBuilder.InsertData(
                 table: "CsAccounts",
                 columns: new[] { "Id", "Balance", "Profit", "PurchasedCount", "SoldCount", "Tax" },
-                values: new object[] { 1, 0m, 0m, 0, 0, 0.02m });
+                values: new object[] { 1, 0m, 0m, 0, 0, 2m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_CsAccountId",

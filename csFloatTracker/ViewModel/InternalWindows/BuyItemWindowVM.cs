@@ -56,7 +56,8 @@ public class BuyItemWindowVM : BindableBase
         BuyCommand = new RelayCommand(BuyCommandFnc, BuyCommandCE);
     }
 
-    private bool BuyCommandCE(object? _) => !string.IsNullOrEmpty(Name) && Price != 0;
+    private bool BuyCommandCE(object? _) => !string.IsNullOrEmpty(Name) && Price >= 0 &&
+        Float >= 0 && Float <= 1;
     private void BuyCommandFnc(object? _)
     {
         IsValid = true;

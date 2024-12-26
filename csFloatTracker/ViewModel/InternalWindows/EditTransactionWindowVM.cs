@@ -47,6 +47,61 @@ public class EditTransactionWindowVM : BindableBase
         }
     }
 
+    private string _name = "";
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private float _float = 0;
+    public float Float
+    {
+        get => _float;
+        set
+        {
+            _float = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private decimal _buyPrice = 0;
+    public decimal BuyPrice
+    {
+        get => _buyPrice;
+        set
+        {
+            _buyPrice = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private decimal _sellPrice = 0;
+    public decimal SellPrice
+    {
+        get => _sellPrice;
+        set
+        {
+            _sellPrice = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private decimal _tax = 0;
+    public decimal Tax
+    {
+        get => _tax;
+        set
+        {
+            _tax = value;
+            OnPropertyChanged();
+        }
+    }
+
     public RelayCommand EditCommand { get; }
     public event Action? OnWindowClosed;
 
@@ -60,16 +115,27 @@ public class EditTransactionWindowVM : BindableBase
     public void InitializeTransaction(TransactionItem transactionItem)
     {
         _transactionItem = transactionItem;
-        SellDate = transactionItem.SoldDate;
-        BuyDate = transactionItem.CreatedDate;
+        SellDate = _transactionItem.SoldDate;
+        BuyDate = _transactionItem.CreatedDate;
+        BuyPrice = _transactionItem.BuyPrice;
+        SellPrice = _transactionItem.SoldPrice;
+        Tax = _transactionItem.Tax;
+        Float = _transactionItem.Float;
+        Name = _transactionItem.Name ?? "";
     }
 
-    private bool EditCommandCE(object? _) => true;
+    private bool EditCommandCE(object? _) => IsDateValid(BuyDate) && IsDateValid(SellDate) && BuyPrice >= 0 && SellPrice >= 0 &&
+        !string.IsNullOrEmpty(Name) && Tax >= 0 && Float >= 0 && Float <= 1;
+
     private void EditCommandFnc(object? _)
     {
         IsValid = true;
         HasChanges = SellDate != _transactionItem?.SoldDate ||
-            BuyDate != _transactionItem?.CreatedDate;
+            BuyDate != _transactionItem?.CreatedDate || Name != _transactionItem.Name ||
+            Float != _transactionItem.Float || Tax != _transactionItem.Tax ||
+            BuyPrice != _transactionItem.BuyPrice || SellPrice != _transactionItem.SoldPrice;
         OnWindowClosed?.Invoke();
     }
+
+    private static bool IsDateValid(DateTime date) => date != DateTime.MinValue && date != DateTime.MaxValue;
 }

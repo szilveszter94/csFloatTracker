@@ -7,22 +7,58 @@
         xmlns:vm="clr-namespace:csFloatTracker.ViewModel.InternalWindows"
         mc:Ignorable="d"
         Title="EditTransactionWindow" WindowStartupLocation="CenterOwner"
-        Height="200" Width="400">
+        Height="400" Width="500">
     <Window.DataContext>
         <vm:EditTransactionWindowVM />
     </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!--Name Field-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Name:" VerticalAlignment="Center" Width="70" />
+                <TextBox Width="300" Margin="5" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <!-- Sell Price Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Sell price:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding SellPrice, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+            </StackPanel>
+
+            <!-- Buy Price Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Buy price:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding BuyPrice, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+            </StackPanel>
+
+            <!-- Buy Price Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tax:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding Tax, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+            </StackPanel>
+
+            <!-- Float Field -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Float:" VerticalAlignment="Center" Width="70" />
+                <mah:NumericUpDown Value="{Binding Float, Mode=TwoWay}"
+                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F12" />
+            </StackPanel>
+
             <!-- BuyDate -->
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                <TextBlock Text="Buy Date:" VerticalAlignment="Center" Width="100" />
-                <mah:DateTimePicker SelectedDateTime="{Binding BuyDate}" Culture="hu-HU" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Buy Date:" VerticalAlignment="Center" Width="70" />
+                <mah:DateTimePicker SelectedDateTime="{Binding BuyDate}" Margin="5"
+                                    Width="300" Culture="hu-HU" />
             </StackPanel>
 
             <!-- SellDate -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Sell Date:" VerticalAlignment="Center" Width="100" />
-                <mah:DateTimePicker SelectedDateTime="{Binding SellDate}" Culture="hu-HU" />
+                <TextBlock Text="Sell Date:" VerticalAlignment="Center" Width="70" />
+                <mah:DateTimePicker SelectedDateTime="{Binding SellDate}" Margin="5"
+                                    Width="300" Culture="hu-HU" />
             </StackPanel>
 
             <!-- Submit Button -->

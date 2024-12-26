@@ -11,7 +11,7 @@ using csFloatTracker.Context;
 namespace csFloatTracker.Migrations
 {
     [DbContext(typeof(FloatTrackerContext))]
-    [Migration("20241225065610_initialCreate")]
+    [Migration("20241226084135_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace csFloatTracker.Migrations
                             Profit = 0m,
                             PurchasedCount = 0,
                             SoldCount = 0,
-                            Tax = 0.02m
+                            Tax = 2m
                         });
                 });
 

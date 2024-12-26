@@ -97,7 +97,7 @@ public class EditAccountWindowVM : BindableBase
         PurchasedCount = _account.PurchasedCount;
     }
 
-    private bool EditCommandCE(object? _) => true;
+    private bool EditCommandCE(object? _) => SoldCount >= 0 && PurchasedCount >= 0 && Tax >= 0;
     private void EditCommandFnc(object? _)
     {
         IsValid = true;

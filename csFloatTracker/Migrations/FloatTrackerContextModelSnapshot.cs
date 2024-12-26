@@ -50,7 +50,7 @@ namespace csFloatTracker.Migrations
                             Profit = 0m,
                             PurchasedCount = 0,
                             SoldCount = 0,
-                            Tax = 0.02m
+                            Tax = 2m
                         });
                 });
 
