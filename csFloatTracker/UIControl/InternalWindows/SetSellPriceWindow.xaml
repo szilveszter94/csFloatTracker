@@ -20,20 +20,22 @@
         </Grid.RowDefinitions>
 
         <!-- Header / Title -->
-        <TextBlock Grid.Row="0" Text="{Binding BoughtPrice, StringFormat='Bought price was: {0:C}'}"
+        <TextBlock Grid.Row="0" Text="{Binding BoughtPrice, StringFormat='Bought price was: {0:F4}'}"
                FontSize="18" FontWeight="Bold" 
                HorizontalAlignment="Center" Margin="0 10 0 5"/>
 
+        <!-- Sell price field -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
             <TextBlock Text="Sell price:" VerticalAlignment="Center" Width="70"/>
             <mah:NumericUpDown Value="{Binding SellPrice, Mode=TwoWay}" Width="200" 
-                                Margin="5" TextAlignment="Left" StringFormat="F1"/>
+                                Minimum="0" Margin="5" TextAlignment="Left" StringFormat="F1"/>
         </StackPanel>
 
+        <!-- Tax -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
             <TextBlock Text="Tax:" VerticalAlignment="Center" Width="70"/>
             <mah:NumericUpDown Value="{Binding Tax, Mode=TwoWay}" Width="200" 
-                        Margin="5" TextAlignment="Left" StringFormat="{}{0:F0}%" />
+                        Margin="5" Minimum="0" TextAlignment="Left" StringFormat="{}{0:F0}%" />
         </StackPanel>
 
         <!-- Submit Button -->

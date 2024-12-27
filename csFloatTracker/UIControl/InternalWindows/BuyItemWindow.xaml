@@ -24,14 +24,14 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Price:" VerticalAlignment="Center" Width="50" />
                 <mah:NumericUpDown Value="{Binding Price, Mode=TwoWay}"
-                   Width="200" Margin="5" TextAlignment="Left" StringFormat="F1" />
+                   Width="200" Margin="5" Minimum="0" TextAlignment="Left" StringFormat="F1" />
             </StackPanel>
 
             <!-- Float Field -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Float:" VerticalAlignment="Center" Width="50" />
-                <mah:NumericUpDown Value="{Binding Float, Mode=TwoWay}"
-                    Width="200" Margin="5" TextAlignment="Left" StringFormat="F1" />
+                <mah:NumericUpDown ToolTip="Min: 0, Max: 1" Value="{Binding Float, Mode=TwoWay}"
+                    Width="200" Margin="5" Minimum="0" Maximum="1" TextAlignment="Left" StringFormat="F1" />
             </StackPanel>
 
             <!-- Submit Button -->

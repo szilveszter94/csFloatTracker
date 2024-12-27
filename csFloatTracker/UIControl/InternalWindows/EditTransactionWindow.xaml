@@ -23,28 +23,28 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Sell price:" VerticalAlignment="Center" Width="70" />
                 <mah:NumericUpDown Value="{Binding SellPrice, Mode=TwoWay}"
-                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+                    Width="300" Minimum="0" Margin="5" TextAlignment="Left" StringFormat="F6" />
             </StackPanel>
 
             <!-- Buy Price Field -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Buy price:" VerticalAlignment="Center" Width="70" />
                 <mah:NumericUpDown Value="{Binding BuyPrice, Mode=TwoWay}"
-                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+                    Width="300" Minimum="0" Margin="5" TextAlignment="Left" StringFormat="F6" />
             </StackPanel>
 
-            <!-- Buy Price Field -->
+            <!-- Tax -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Tax:" VerticalAlignment="Center" Width="70" />
                 <mah:NumericUpDown Value="{Binding Tax, Mode=TwoWay}"
-                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F6" />
+                    Width="300" Minimum="0" Margin="5" TextAlignment="Left" StringFormat="F6" />
             </StackPanel>
 
             <!-- Float Field -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Float:" VerticalAlignment="Center" Width="70" />
-                <mah:NumericUpDown Value="{Binding Float, Mode=TwoWay}"
-                    Width="300" Margin="5" TextAlignment="Left" StringFormat="F12" />
+                <mah:NumericUpDown ToolTip="Min: 0, Max: 1" Value="{Binding Float, Mode=TwoWay}"
+                    Width="300" Margin="5" Minimum="0" Maximum="1" TextAlignment="Left" StringFormat="F12" />
             </StackPanel>
 
             <!-- BuyDate -->

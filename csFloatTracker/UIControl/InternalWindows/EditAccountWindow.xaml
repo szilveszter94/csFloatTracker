@@ -17,7 +17,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Balance:" VerticalAlignment="Center" Width="100" />
                 <mah:NumericUpDown Value="{Binding Balance, Mode=TwoWay}"
-                                   Width="200" Margin="5" TextAlignment="Left" StringFormat="F4" />
+                                   Width="200" Margin="5" Minimum="0" TextAlignment="Left" StringFormat="F4" />
             </StackPanel>
 
             <!-- Profit -->
@@ -31,21 +31,21 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Tax:" VerticalAlignment="Center" Width="100" />
                 <mah:NumericUpDown Value="{Binding Tax, Mode=TwoWay}"
-                    Width="200" Margin="5" TextAlignment="Left" StringFormat="{}{0:F0}%" />
+                    Width="200" Minimum="0" Margin="5" TextAlignment="Left" StringFormat="{}{0:F0}%" />
             </StackPanel>
 
             <!-- Sold count -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Sold count:" VerticalAlignment="Center" Width="100" />
                 <mah:NumericUpDown Value="{Binding SoldCount, Mode=TwoWay}"
-                   Width="200" Margin="5" TextAlignment="Left" />
+                   Width="200" Minimum="0" Margin="5" TextAlignment="Left" />
             </StackPanel>
 
             <!-- Purchased count -->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Purchased count:" VerticalAlignment="Center" Width="100" />
                 <mah:NumericUpDown Value="{Binding PurchasedCount, Mode=TwoWay}"
-                   Width="200" Margin="5" TextAlignment="Left" />
+                   Width="200" Minimum="0" Margin="5" TextAlignment="Left" />
             </StackPanel>
 
             <!-- Submit Button -->
