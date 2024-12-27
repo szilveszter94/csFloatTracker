@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using csFloatTracker.Utils;
+using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.Windows;
 
@@ -9,7 +10,7 @@ namespace csFloatTracker
     /// </summary>
     public partial class App : Application
     {
-        public static ILogger Logger { get; private set; }
+        public static ILogger Logger { get; private set; } = new DummyLogger();
 
         protected override void OnStartup(StartupEventArgs e)
         {
