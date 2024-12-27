@@ -8,15 +8,14 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
-
+	
   <ItemGroup>
-    <None Remove="Assets\icon.ico" />
+	<Content Include="Assets\icon.ico" />
+	<Content Include="nlog.config">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\icon.ico" />
-  </ItemGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="LiveCharts" Version="0.9.7" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
@@ -28,6 +27,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
   </ItemGroup>
 
   <ItemGroup>

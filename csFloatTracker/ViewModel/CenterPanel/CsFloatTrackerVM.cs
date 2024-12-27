@@ -8,6 +8,7 @@ using csFloatTracker.Utils;
 using csFloatTracker.ViewModel.InternalWindows;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 
 namespace csFloatTracker.ViewModel.CenterPanel;
@@ -141,6 +142,7 @@ public class CsFloatTrackerVM : BindableBase
     public RelayCommand EditFloatCommand { get; }
     public RelayCommand DeleteCommand { get; }
     public RelayCommand ShowChartCommand { get; }
+    public RelayCommand OpenLogCommand { get; }
 
     private readonly FloatTrackerContext _context;
     private readonly FloatTrackerRepository _repository;
@@ -157,6 +159,7 @@ public class CsFloatTrackerVM : BindableBase
         EditFloatCommand = new RelayCommand(EditFloatCommandFnc, EditFloatCommandCE);
         DeleteCommand = new RelayCommand(DeleteCommandFnc, DeleteCommandCE);
         ShowChartCommand = new RelayCommand(ShowChartCommandFnc, ShowChartCommandCE);
+        OpenLogCommand = new RelayCommand(OpenLogCommandFnc, OpenLogCommandCE);
         GetAccount();
         RefreshAsync();
     }
@@ -411,6 +414,21 @@ public class CsFloatTrackerVM : BindableBase
         }
 
         chartWindow.ShowDialog();
+    }
+
+    private bool OpenLogCommandCE(object? _) => true;
+    private void OpenLogCommandFnc(object? _)
+    {
+        string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+
+        if (Directory.Exists(logDirectory))
+        {
+            System.Diagnostics.Process.Start("explorer.exe", logDirectory);
+        }
+        else
+        {
+            MessageBox.Show("Log directory does not exist.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     private async void GetAccount()

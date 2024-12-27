@@ -123,6 +123,13 @@
                 </Button>
             </StackPanel>
 
+            <Button HorizontalAlignment="Right" Margin="0 0 20 0" Command="{Binding OpenLogCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="TextBox" Width="15" VerticalAlignment="Center" Height="15"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Margin="3 0 0 2">Show log</TextBlock>
+                </StackPanel>
+            </Button>
+
         </StackPanel>
     </Grid>
 </UserControl>
