@@ -33,6 +33,31 @@
                 <Setter Property="Padding" Value="3" />
             </Style>
 
+            <Style TargetType="ToolTip">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.MenuItem.SelectionStroke}" />
+                <Setter Property="Foreground" Value="{DynamicResource IdealForegroundColorBrush}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToolTip">
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5"
+                                Padding="{TemplateBinding Padding}">
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!-- Update any specific brushes if needed -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
             <SolidColorBrush x:Key="AccentBaseColorBrush" Color="{DynamicResource Primary600}" />
