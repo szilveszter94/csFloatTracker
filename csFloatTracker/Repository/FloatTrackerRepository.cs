@@ -4,7 +4,6 @@ using csFloatTracker.Utils;
 using csFloatTracker.ViewModel.InternalWindows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace csFloatTracker.Repository;
 
